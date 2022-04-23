@@ -20,5 +20,5 @@ public interface RestConstant {
 
     String UPDATE = "/update";
 
-    String DROP = "/drop";
+    String DELETE = "/delete";
 }

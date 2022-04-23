@@ -32,6 +32,13 @@ public class CategoryEntity {
     private String description;
 
     /**
+     * 状态
+     * 0：在用
+     * 1：废弃
+     */
+    private Integer status;
+
+    /**
      * 创建时间
      */
     private Date createTime;

@@ -1,6 +1,8 @@
 package com.zcc.mobile.sell.web;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 
@@ -12,6 +14,7 @@ import java.net.URI;
  * @date 2022/2/27
  */
 @SpringBootApplication(scanBasePackages = {"com.zcc.mobile"})
+@MapperScan("com.zcc.mobile.sell.domain.dao")
 public class Application {
 
     public static void main(String[] args) {
