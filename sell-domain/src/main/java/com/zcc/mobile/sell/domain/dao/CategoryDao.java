@@ -21,13 +21,13 @@ public interface CategoryDao {
             @Result(column = "name", property = "name"),
             @Result(column = "description", property = "description"),
             @Result(column = "status", property = "status"),
-            @Result(column = "createTime", property = "create_time"),
-            @Result(column = "updateTime", property = "update_time"),
+            @Result(column = "datachange_createtime", property = "createTime"),
+            @Result(column = "datachange_lasttime", property = "updateTime"),
     })
     List<CategoryEntity> findAll(@Param("status") int status);
 
-    @Insert("insert into category_info (type, name, description) values " +
-            "(#{type}, #{name}, #{description})")
+    @Insert("insert into category_info (type, name, status, description) values " +
+            "(#{type}, #{name}, #{status}, #{description})")
     @Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")
     int createCategory(CategoryEntity categoryEntity);
 

@@ -9,5 +9,6 @@ public class CategoryType {
     private Integer type;
     private String name;
     private String description;
+    private Integer status;
 
 }

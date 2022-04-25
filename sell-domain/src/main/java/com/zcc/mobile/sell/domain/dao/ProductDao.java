@@ -12,7 +12,7 @@ import java.util.List;
 @Mapper
 public interface ProductDao {
 
-    @Select("select * from product_info")
+    @Select("select * from product_info where #{condition} = '' or name like #{condition}")
     @Results({
             @Result(column = "id", property = "id"),
             @Result(column = "code", property = "code"),
@@ -26,7 +26,7 @@ public interface ProductDao {
             @Result(column = "datachange_lasttime", property = "updateTime"),
             @Result(column = "datachange_createtime", property = "createTime"),
     })
-    List<ProductEntity> findAll();
+    List<ProductEntity> findAll(String condition);
 
     @Insert("insert into product_info (code,name,description,image,category,price,stock,status) values " +
             "(#{code},#{name},#{description},#{image},#{category},#{price},#{stock},#{status})")

@@ -16,7 +16,10 @@ public class ProductInfoVO {
     private String name;
     private String description;
     private String img;
+    private Integer category;
     private BigDecimal price;
     private Integer stock;
     private Integer status;
+    private String createTime;
+    private String updateTime;
 }

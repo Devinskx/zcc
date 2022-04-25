@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 @Data
 public class ProductType {
 
+    private Long id;
     private String name;
     private String code;
     private String img;
@@ -18,4 +19,5 @@ public class ProductType {
     private BigDecimal price;
     private Integer stock;
     private Integer category;
+    private Integer status;
 }

@@ -54,14 +54,6 @@ public class CategoryController {
 
     @PostMapping(RestConstant.CREATE)
     public SellResponse createCategory(@RequestBody ModifyCategoryRequest request) {
-        if (Objects.isNull(request)
-                || StringUtils.isEmpty(request.getAccount())) {
-            return SellResponse.newBuilder()
-                    .setCode(ResponseStatusEnum.FAILURE.getCode())
-                    .setMessage("Please Login First!")
-                    .setData(false)
-                    .build();
-        }
         try {
             categoryService.createCategory(request);
             return SellResponse.newBuilder()
@@ -87,14 +79,6 @@ public class CategoryController {
 
     @PostMapping(RestConstant.UPDATE)
     public SellResponse updateCategory(@RequestBody ModifyCategoryRequest request) {
-        if (Objects.isNull(request)
-                || StringUtils.isEmpty(request.getAccount())) {
-            return SellResponse.newBuilder()
-                    .setCode(ResponseStatusEnum.FAILURE.getCode())
-                    .setMessage("Please Login First!")
-                    .setData(false)
-                    .build();
-        }
         try {
             categoryService.updateCategory(request);
             return SellResponse.newBuilder()
@@ -142,6 +126,4 @@ public class CategoryController {
             }
         }
     }
-
-
 }

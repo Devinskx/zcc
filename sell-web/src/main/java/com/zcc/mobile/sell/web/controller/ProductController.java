@@ -29,9 +29,9 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping(RestConstant.LIST)
-    public SellResponse getProductList() {
+    public SellResponse getProductList(@RequestParam("condition") String condition) {
         try {
-            List<ProductInfoVO> list = productService.getProductList();
+            List<ProductInfoVO> list = productService.getProductList(condition);
             return SellResponse.newBuilder()
                     .setData(list)
                     .build();
@@ -54,14 +54,6 @@ public class ProductController {
 
     @PostMapping(RestConstant.CREATE)
     public SellResponse createNewProduct(@RequestBody ModifyProductRequest request) {
-        if (Objects.isNull(request)
-                || StringUtils.isEmpty(request.getAccount())) {
-            return SellResponse.newBuilder()
-                    .setCode(ResponseStatusEnum.FAILURE.getCode())
-                    .setMessage("Please Login First!")
-                    .setData(false)
-                    .build();
-        }
         try {
             productService.createProduct(request);
             return SellResponse.newBuilder()
@@ -85,14 +77,6 @@ public class ProductController {
 
     @PostMapping(RestConstant.UPDATE)
     public SellResponse updateProduct(@RequestBody ModifyProductRequest request) {
-        if (Objects.isNull(request)
-                || StringUtils.isEmpty(request.getAccount())) {
-            return SellResponse.newBuilder()
-                    .setCode(ResponseStatusEnum.FAILURE.getCode())
-                    .setMessage("Please Login First!")
-                    .setData(false)
-                    .build();
-        }
         try {
             productService.updateProduct(request);
             return SellResponse.newBuilder()

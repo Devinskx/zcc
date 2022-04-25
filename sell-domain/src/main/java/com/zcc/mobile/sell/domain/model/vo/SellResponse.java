@@ -1,11 +1,13 @@
 package com.zcc.mobile.sell.domain.model.vo;
 
 import com.zcc.mobile.sell.domain.enums.ResponseStatusEnum;
+import lombok.Data;
 
 /**
  * @author Devin sun
  * @date 2022/2/27
  */
+@Data
 public class SellResponse {
 
     private Integer code;

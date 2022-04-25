@@ -77,8 +77,12 @@ public class CategoryService {
 
     private CategoryEntity convertType2Entity(CategoryType categoryType) {
         CategoryEntity categoryEntity = new CategoryEntity();
+        if (categoryType.getId() != -1) {
+            categoryEntity.setId(categoryType.getId());
+        }
         categoryEntity.setName(categoryType.getName());
         categoryEntity.setType(categoryType.getType());
+        categoryEntity.setStatus(categoryType.getStatus());
         categoryEntity.setDescription(categoryType.getDescription());
         return categoryEntity;
     }
