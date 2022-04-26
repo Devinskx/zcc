@@ -13,7 +13,7 @@
     <groupId>com.zcc.mobile</groupId>
     <artifactId>sell</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <modules>
         <module>sell-web</module>
         <module>sell-service</module>
@@ -24,7 +24,8 @@
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
-        <project.version>1.0-SNAPSHOT</project.version>
+        <project.version>1.0</project.version>
+        <docker.image.prefix>registry.aliyun.com</docker.image.prefix>
     </properties>
 
     <dependencies>
@@ -50,5 +51,26 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <configuration>
+                    <dockerDirectory>src/main/docker</dockerDirectory>
+                    <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+                    <resources>
+                        <resource>
+                            <targetPath>/sell-web/</targetPath>
+                            <directory>/sell-web/target</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
