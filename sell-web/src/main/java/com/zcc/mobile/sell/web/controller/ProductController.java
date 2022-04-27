@@ -1,8 +1,10 @@
 package com.zcc.mobile.sell.web.controller;
 
 import com.zcc.mobile.sell.common.constant.RestConstant;
+import com.zcc.mobile.sell.common.constant.SellConstant;
 import com.zcc.mobile.sell.common.exceptions.SellException;
 import com.zcc.mobile.sell.domain.enums.ResponseStatusEnum;
+import com.zcc.mobile.sell.domain.model.bo.GoodInfo;
 import com.zcc.mobile.sell.domain.model.vo.SellResponse;
 import com.zcc.mobile.sell.domain.model.vo.product.ModifyProductRequest;
 import com.zcc.mobile.sell.domain.model.vo.product.ProductInfoVO;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
@@ -96,5 +99,22 @@ public class ProductController {
                         .build();
             }
         }
+    }
+
+    @GetMapping(RestConstant.SELLER_PREFIX + RestConstant.LIST)
+    public SellResponse getGoods() {
+        List<GoodInfo> goods = new LinkedList<>();
+        ResponseStatusEnum result = ResponseStatusEnum.FAILURE;
+        try {
+            goods = productService.getGoodsForSeller();
+            result = ResponseStatusEnum.SUCCESS;
+        } catch (Exception e) {
+            log.error("get goods error!", e);
+        }
+        return SellResponse.newBuilder()
+                .setCode(result.getCode())
+                .setMessage(result.getMessage())
+                .setData(goods)
+                .build();
     }
 }

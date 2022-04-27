@@ -1,6 +1,7 @@
 package com.zcc.mobile.sell.domain.dao;
 
 import com.zcc.mobile.sell.domain.entity.ProductEntity;
+import com.zcc.mobile.sell.domain.entity.ProductWithCategoryEntity;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -36,4 +37,22 @@ public interface ProductDao {
     @Update("update product_info set code = #{code}, name = #{name}, description = #{description}, image = #{image}, " +
             "category = #{category}, price = #{price}, stock = #{stock}, status = #{status} where id = #{id}")
     int update(ProductEntity product);
+
+    @Select("select * from " +
+            "(select * from product_info where status = #{status}) as A left join " +
+            "(select type,name as category_name from category_info where status = #{status}) as B " +
+            "on A.category = B.type")
+    @Results({
+            @Result(column = "id", property = "id"),
+            @Result(column = "code", property = "code"),
+            @Result(column = "name", property = "name"),
+            @Result(column = "description", property = "description"),
+            @Result(column = "image", property = "image"),
+            @Result(column = "category", property = "category"),
+            @Result(column = "price", property = "price"),
+            @Result(column = "stock", property = "stock"),
+            @Result(column = "status", property = "status"),
+            @Result(column = "category_name", property = "categoryName")
+    })
+    List<ProductWithCategoryEntity> getProductsWithCategory(@Param("status") int status);
 }

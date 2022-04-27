@@ -5,17 +5,20 @@ import com.zcc.mobile.sell.common.exceptions.SellException;
 import com.zcc.mobile.sell.common.utils.DateUtils;
 import com.zcc.mobile.sell.domain.dao.ProductDao;
 import com.zcc.mobile.sell.domain.entity.ProductEntity;
+import com.zcc.mobile.sell.domain.entity.ProductWithCategoryEntity;
+import com.zcc.mobile.sell.domain.model.bo.FoodInfo;
+import com.zcc.mobile.sell.domain.model.bo.GoodInfo;
 import com.zcc.mobile.sell.domain.model.vo.product.ModifyProductRequest;
 import com.zcc.mobile.sell.domain.model.vo.product.ProductInfoVO;
 import com.zcc.mobile.sell.domain.model.vo.product.ProductType;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.math.BigDecimal;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -23,6 +26,7 @@ import java.util.stream.Collectors;
  * @date 2022/2/27
  */
 @Service
+@Slf4j
 public class ProductService {
 
     @Autowired
@@ -65,6 +69,44 @@ public class ProductService {
         if (result != 1) {
             throw new SellException("update product info error");
         }
+    }
+
+    public List<GoodInfo> getGoodsForSeller() {
+        List<GoodInfo> goods = new LinkedList<>();
+        Random random = new Random();
+        try {
+            List<ProductWithCategoryEntity> productWithCategoryEntities =
+                    productDao.getProductsWithCategory(SellConstant.ON_USE);
+            if (!CollectionUtils.isEmpty(productWithCategoryEntities)) {
+                Map<Integer, List<ProductWithCategoryEntity>> productMap = productWithCategoryEntities
+                        .stream()
+                        .collect(Collectors.groupingBy(ProductWithCategoryEntity::getCategory));
+                productMap.forEach((k, v) -> {
+                    GoodInfo goodInfo = new GoodInfo();
+                    goodInfo.setName(v.get(0).getName());
+                    goodInfo.setType(v.get(0).getCategory());
+                    goodInfo.setFoods(v.stream()
+                            .map(item -> {
+                                FoodInfo foodInfo = new FoodInfo();
+                                foodInfo.setId(item.getId());
+                                foodInfo.setName(item.getName());
+                                foodInfo.setPrice(item.getPrice());
+                                foodInfo.setOldPrice(new BigDecimal(random.nextInt(50)));
+                                foodInfo.setDescription(item.getDescription());
+                                foodInfo.setSellCount(random.nextInt(100));
+                                foodInfo.setRating(99);
+                                foodInfo.setIcon(item.getImage());
+                                foodInfo.setImage(item.getImage());
+                                return foodInfo;
+                            })
+                            .collect(Collectors.toList()));
+                    goods.add(goodInfo);
+                });
+            }
+        } catch (Exception e) {
+            log.error("get product with category error!", e);
+        }
+        return goods;
     }
 
     private ProductEntity convertType2Entity(ProductType productType) {

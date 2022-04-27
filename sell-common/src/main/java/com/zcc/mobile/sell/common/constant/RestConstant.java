@@ -12,6 +12,8 @@ public interface RestConstant {
 
     String CATEGORY_MODULE = "/category";
 
+    String SELLER_PREFIX = "/seller";
+
     String LIST = "/list";
 
     String DETAIL = "/detail";

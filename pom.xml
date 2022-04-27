@@ -55,22 +55,14 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
-                <version>1.0.0</version>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <dockerDirectory>src/main/docker</dockerDirectory>
-                    <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
-                    <resources>
-                        <resource>
-                            <targetPath>/sell-web/</targetPath>
-                            <directory>/sell-web/target</directory>
-                            <include>${project.build.finalName}.jar</include>
-                        </resource>
-                    </resources>
+                    <mainClass>com.zcc.mobile.sell.web.Application</mainClass>
                 </configuration>
             </plugin>
         </plugins>
     </build>
+
 
 </project>
