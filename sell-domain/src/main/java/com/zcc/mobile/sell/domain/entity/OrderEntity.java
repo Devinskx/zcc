@@ -1,5 +1,6 @@
 package com.zcc.mobile.sell.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -18,7 +19,9 @@ public class OrderEntity {
     private BigDecimal amount;
     private Integer orderStatus;
     private Integer status;
+
     private Date createTime;
+
     private Date updateTime;
 
 }

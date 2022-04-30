@@ -55,4 +55,15 @@ public interface ProductDao {
             @Result(column = "category_name", property = "categoryName")
     })
     List<ProductWithCategoryEntity> getProductsWithCategory(@Param("status") int status);
+
+    @Select("select * from product_info where id = #{id}")
+    ProductEntity findProductById(@Param("id") Long id);
+
+    @Update({"<script>",
+            "<foreach collection='products' index='index' item='item' separator=';' open='' close=''>",
+            "update product_info set code = #{item.code}, name = #{item.name}, description = #{item.description}, image = #{item.image}, " +
+                    "category = #{item.category}, price = #{item.price}, stock = #{item.stock}, status = #{item.status} where id = #{item.id}",
+            "</foreach>",
+            "</script>"})
+    int updateBatchProducts(@Param("products") List<ProductEntity> products);
 }

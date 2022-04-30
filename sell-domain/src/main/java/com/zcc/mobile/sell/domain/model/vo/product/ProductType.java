@@ -20,4 +20,5 @@ public class ProductType {
     private Integer stock;
     private Integer category;
     private Integer status;
+    private Integer count;
 }

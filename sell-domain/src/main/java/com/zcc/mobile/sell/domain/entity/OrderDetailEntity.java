@@ -1,5 +1,6 @@
 package com.zcc.mobile.sell.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -20,17 +21,12 @@ public class OrderDetailEntity {
     /**
      * 主订单号
      */
-    private String orderId;
-
-    /**
-     * 自订单号
-     */
-    private String detailOrderId;
+    private Long orderId;
 
     /**
      * 商品编码
      */
-    private String productCode;
+    private Long productId;
 
     /**
      * 商品数量
@@ -51,6 +47,13 @@ public class OrderDetailEntity {
      * 商品图片
      */
     private String productImage;
+
+    /**
+     * 状态
+     * 0：在用
+     * 1：废弃
+     */
+    private Integer status;
 
     /**
      * 创建时间

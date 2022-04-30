@@ -1,5 +1,6 @@
 package com.zcc.mobile.sell.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -61,10 +62,12 @@ public class ProductEntity {
     /**
      * 创建时间
      */
+
     private Date createTime;
 
     /**
      * 最后更新时间
      */
+
     private Date updateTime;
 }

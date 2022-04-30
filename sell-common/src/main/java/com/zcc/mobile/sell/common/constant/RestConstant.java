@@ -12,6 +12,10 @@ public interface RestConstant {
 
     String CATEGORY_MODULE = "/category";
 
+    String ORDER_MODULE = "/order";
+
+    String WE_CHAT_MODULE = "/weChat";
+
     String SELLER_PREFIX = "/seller";
 
     String LIST = "/list";
@@ -23,4 +27,6 @@ public interface RestConstant {
     String UPDATE = "/update";
 
     String DELETE = "/delete";
+
+    String PAY = "/pay";
 }
