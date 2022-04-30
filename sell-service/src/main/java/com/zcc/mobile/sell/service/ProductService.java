@@ -83,7 +83,7 @@ public class ProductService {
                         .collect(Collectors.groupingBy(ProductWithCategoryEntity::getCategory));
                 productMap.forEach((k, v) -> {
                     GoodInfo goodInfo = new GoodInfo();
-                    goodInfo.setName(v.get(0).getName());
+                    goodInfo.setName(v.get(0).getCategoryName());
                     goodInfo.setType(v.get(0).getCategory());
                     goodInfo.setFoods(v.stream()
                             .map(item -> {
