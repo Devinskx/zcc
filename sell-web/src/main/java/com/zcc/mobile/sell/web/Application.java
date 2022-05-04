@@ -1,6 +1,7 @@
 package com.zcc.mobile.sell.web;
 
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -19,11 +20,12 @@ import java.net.URI;
 public class Application {
 
     public static void main(String[] args) {
-        ConfigurableApplicationContext context = new SpringApplicationBuilder(Application.class).run(args);
-        int port = context.getEnvironment().getProperty("server.port", int.class);
+        SpringApplication.run(Application.class, args);
+//        ConfigurableApplicationContext context = new SpringApplicationBuilder(Application.class).run(args);
+//        int port = context.getEnvironment().getProperty("server.port", int.class);
         System.setProperty("java.awt.headless", "false");
         try {
-            Desktop.getDesktop().browse(new URI("http://127.0.0.1:" + port));
+            Desktop.getDesktop().browse(new URI("http://127.0.0.1"));
         } catch (Exception e) {
             e.printStackTrace();
         }

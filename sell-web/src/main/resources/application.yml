@@ -1,0 +1,33 @@
+spring:
+  shardingsphere:
+    datasource:
+      names: master,slave1
+      master:
+        type: com.alibaba.druid.pool.DruidDataSource
+        url: jdbc:mysql://124.221.133.6:3306/sell?characterEncoding=utf-8&serverTimezone=GMT%2b8
+        username: root
+        password: 'Root123!'
+        driver-class-name: com.mysql.cj.jdbc.Driver
+      slave1:
+        type: com.alibaba.druid.pool.DruidDataSource
+        url: jdbc:mysql://121.5.46.160:3306/sell?characterEncoding=utf-8&serverTimezone=GMT%2b8
+        username: root
+        password: '1997Devin!'
+        driver-class-name: com.mysql.cj.jdbc.Driver
+    props:
+      sql.show: true
+    masterslave:
+      load-balance-algorithm-type: round_robin
+    sharding:
+      master-slave-rules:
+        master:
+          master-data-source-name: master
+          slave-data-source-names: slave1
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+wechat:
+  mpAppId: wx0b0aa0d0cc6bc3be
+  mpAppSecret: 14fe0e6880a4a223010e89ae8b59ddc7
+server:
+  port: 80
