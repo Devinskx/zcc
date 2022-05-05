@@ -10,8 +10,8 @@ import java.util.List;
 @Mapper
 public interface OrderDao {
 
-    @Select("select * from " +
-            "(select * from " +
+    @Select("select C.orderId,C.buyer,C.amount,C.detailId,C.product_quantity,D.productId,D.name,D.price,D.image,C.create_time from " +
+            "(select A.product_id,B.orderId,B.buyer,B.amount,A.detailId,A.product_quantity,B.create_time from " +
             "(select id as detailId, order_id, product_id, product_quantity from order_detail where status = #{status}) as A left join " +
             "(select id as orderId, buyer, amount, create_time from order_info where status = #{status}) as B " +
             "on A.order_id = B.orderId) as C left join " +

@@ -38,7 +38,7 @@ public interface ProductDao {
             "category = #{category}, price = #{price}, stock = #{stock}, status = #{status} where id = #{id}")
     int update(ProductEntity product);
 
-    @Select("select * from " +
+    @Select("select A.id,A.code,A.name,A.description,A.image,A.category,A.price,A.stock,A.status,B.category_name from " +
             "(select * from product_info where status = #{status}) as A left join " +
             "(select type,name as category_name from category_info where status = #{status}) as B " +
             "on A.category = B.type")
