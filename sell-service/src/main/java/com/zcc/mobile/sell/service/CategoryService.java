@@ -3,6 +3,7 @@ package com.zcc.mobile.sell.service;
 import com.zcc.mobile.sell.common.constant.SellConstant;
 import com.zcc.mobile.sell.common.exceptions.SellException;
 import com.zcc.mobile.sell.domain.dao.CategoryDao;
+import com.zcc.mobile.sell.domain.dao.ProductDao;
 import com.zcc.mobile.sell.domain.entity.CategoryEntity;
 import com.zcc.mobile.sell.domain.entity.ProductEntity;
 import com.zcc.mobile.sell.domain.model.vo.category.CategoryInfoVO;
@@ -31,6 +32,8 @@ public class CategoryService {
 
     @Autowired
     private CategoryDao categoryDao;
+    @Autowired
+    private ProductDao productDao;
 
     public List<CategoryInfoVO> getAllCategory() throws SellException {
         List<CategoryEntity> categoryEntities = categoryDao.findAll(SellConstant.ON_USE);
@@ -68,6 +71,11 @@ public class CategoryService {
     public void deleteCategory(Long id) throws Exception {
         if (Objects.isNull(id)) {
             throw new SellException("Param error!");
+        }
+        CategoryEntity category = categoryDao.findById(id);
+        List<Long> products = productDao.findProductsByCategory(category.getType(), SellConstant.ON_USE);
+        if (!CollectionUtils.isEmpty(products)) {
+            throw new SellException("Please delete related products first!");
         }
         int result = categoryDao.deleteCategory(SellConstant.DROPPED, id);
         if (result != 1) {

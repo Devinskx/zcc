@@ -66,4 +66,8 @@ public interface ProductDao {
             "</foreach>",
             "</script>"})
     int updateBatchProducts(@Param("products") List<ProductEntity> products);
+
+    @Select("select id from product_info where category = #{} and status = #{}")
+    List<Long> findProductsByCategory(@Param("status") int status,
+                                      @Param("category") int category);
 }

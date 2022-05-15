@@ -26,6 +26,18 @@ public interface CategoryDao {
     })
     List<CategoryEntity> findAll(@Param("status") int status);
 
+    @Select("select * from category_info where id = #{id}")
+    @Results({
+            @Result(column = "id", property = "id"),
+            @Result(column = "type", property = "type"),
+            @Result(column = "name", property = "name"),
+            @Result(column = "description", property = "description"),
+            @Result(column = "status", property = "status"),
+            @Result(column = "datachange_createtime", property = "createTime"),
+            @Result(column = "datachange_lasttime", property = "updateTime"),
+    })
+    CategoryEntity findById(@Param("id") long id);
+
     @Insert("insert into category_info (type, name, status, description) values " +
             "(#{type}, #{name}, #{status}, #{description})")
     @Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")
