@@ -10,6 +10,7 @@ import java.util.Date;
 public class OrderWithDetailEntity {
 
     private Long orderId;
+    private String orderCode;
     private String openId;
     private BigDecimal totalAmount;
     private Long detailId;

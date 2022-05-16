@@ -9,6 +9,7 @@ import java.util.List;
 public class OrderInfo {
 
     private Long orderId;
+    private String orderCode;
     private String openId;
     private BigDecimal totalAmount;
     private List<OrderDetailInfo> orderDetails;

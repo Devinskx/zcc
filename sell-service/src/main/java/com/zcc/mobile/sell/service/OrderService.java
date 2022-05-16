@@ -54,6 +54,7 @@ public class OrderService {
                 OrderWithDetailEntity defaultDetailOrder = v.get(0);
                 OrderInfo orderInfo = new OrderInfo();
                 orderInfo.setOrderId(k);
+                orderInfo.setOrderCode(defaultDetailOrder.getOrderCode());
                 orderInfo.setOpenId(defaultDetailOrder.getOpenId());
                 orderInfo.setOrderDetails(v.stream()
                         .map(detail -> {
